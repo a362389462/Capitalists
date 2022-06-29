@@ -25,10 +25,10 @@ def hello_world():
     inputs=[
         hs.HopsBrep("FP","FP","Floor Plan"),
         hs.HopsNumber("FN","FN","Floor Number"),
-        hs.HopsNumber("FH","FH","Floor Hight",Default=1.0),
+        hs.HopsNumber("FH","FH","Floor Hight",Default=1.0)
         ]
     outputs=[
-        hs.HopsBrep("Result","R","Result")
+        hs.HopsBrep("R","R","Result")
         ]
 )
 
