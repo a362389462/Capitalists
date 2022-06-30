@@ -1,10 +1,8 @@
 
 # A very simple Flask Hello World app for you to get started with...
 
-from re import T
-from shutil import move
+
 from flask import Flask
-from asyncore import loop
 import pandas as pd
 import numpy as np
 import ghhops_server as hs
@@ -19,31 +17,47 @@ def hello_world():
     return 'Hello from Derrick!'
 
 @hops.component(
-    "/Duplicator",
-    name="Duplicator",
-    description="Put your building into it an duplicate it",
+    "/Calculator",
+    name="CalCulator",
+    description="Calculate for each floor",
     inputs=[
-        hs.HopsBrep("FP","FP","Floor Plan"),
-        hs.HopsNumber("FN","FN","Floor Number"),
-        hs.HopsNumber("FH","FH","Floor Hight",Default=1.0)
-        ]
+        hs.HopsNumber("MaterialW","MW","Weight of it's main structure for each Level"),
+        hs.HopsNumber("MeterialC","MC","Cost of the main structure per Kg"),
+
+    ],
     outputs=[
-        hs.HopsBrep("R","R","Result")
-        ]
+        hs.HopsNumber("Result","R","Result"),
+
+    ]
 )
+def Duplicator(MW,MC):
 
-def Duplicator(brep,R):
-    FP = hs.HopsBrep("FP","FP","Floor Plan"),
-    FN = hs.HopsNumber("FN","FN","Floor Number") ,
-    FH = hs.HopsNumber("FH","FH","Floor Hight",Default=1.0),
-    R = hs.HopsBrep("Result","R","Result"),
-    T = FN * FH
+    C = MW * MC
+    return C
 
-    return brep.Duplicator(R)
+@hops.component(
+    "/Duplicator",
+    name="DuPlicator",
+    description="Dupicate your building with multiple floors",
+    inputs=[
+        hs.HopsInteger("L","L","Level numbers"),
+        hs.HopsNumber("H","H","Height for each Floor"),
+
+    ],
+    outputs=[
+        hs.HopsNumber("Result","R","Result"),
+
+    ]
+)
+def Duplicator(L,H):
+    
+    R = L * H
+
+    return R
+
+    
+        
 
 if __name__ == "__main__":
     app.run()
-
-
     
-
